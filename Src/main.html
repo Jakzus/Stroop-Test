@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stroop Test</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #1C1C1C;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container.start-btn {
+            background: transparent;
+            border: none;
+            padding: 40px;
+             max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .container {
+            background: black;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .word-display {
+            margin: 40px 0;
+        }
+
+        .color-word {
+            font-size: 5em;
+            font-weight: bold;
+            margin: 30px 0;
+            font-family: Arial, sans-serif;
+            letter-spacing: 2px;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .feedback {
+            margin-top: 20px;
+            font-size: 1.3em;
+            font-weight: bold;
+            min-height: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .feedback.correct {
+            color: #2ecc71;
+        }
+
+        .feedback.incorrect {
+            color: #e74c3c;
+        }
+
+        .start-screen {
+            text-align: center;
+        }
+
+        .start-btn {
+            background: blue;
+            color: white;
+            border: none;
+            padding: 15px 50px;
+            font-size: 3.2em;
+            border-radius: 10px;
+            cursor: pointer;
+            margin: 10px;
+        }
+
+        .reset-btn, .end-btn {
+            background: blue;
+            color: white;
+            border: none;
+            padding: 15px 50px;
+            font-size: 1.5em;
+            border-radius: 10px;
+            cursor: pointer;
+            margin: 10px;
+        }
+
+        .end-btn {
+            background: #1C1C1C;
+        }
+
+        .end-btn:hover {
+            background: #1C1C1C;
+        }
+
+        .end-screen {
+            text-align: center;
+        }
+
+        .final-stats {
+            background: black;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            line-height: 2;
+        }
+
+        .final-stats p {
+            font-size: 1em;
+            color: white;
+        }
+
+        .accuracy-rate {
+            font-size: 1.5em;
+            color: #667eea;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Start Screen (No Container) -->
+    <div id="startScreen" class="start-screen">
+        <button class="start-btn" onclick="startTest()">Start</button>
+    </div>
+
+    <!-- Container (Hidden Initially) -->
+    <div class="container hidden" id="mainContainer">
+        <!-- Test Screen -->
+        <div id="testScreen">
+            <div class="word-display">
+                <div class="color-word" id="colorWord"></div>
+            </div>
+
+            <div class="feedback" id="feedback"></div>
+            
+            <button class="end-btn" onclick="pauseTest()">Pause</button>
+        </div>
+
+        <!-- Pause Screen -->
+        <div id="pauseScreen" class="end-screen hidden">
+            <h1 style="color: white; margin-bottom: 20px;">Test Paused</h1>
+            <button class="start-btn" style="font-size: 1.5em; margin-top: 20px;" onclick="resumeTest()">Fortsæt</button>
+            <button class="reset-btn" style="margin-top: 10px;" onclick="endTest()">Slut Test</button>
+        </div>
+
+        <!-- End Screen -->
+        <div id="endScreen" class="end-screen hidden">
+            <div class="final-stats">
+                <h3 style="color: white; margin-bottom: 15px;">0-2 Minutter</h3>
+                <p>Korrekt: <strong id="window1Correct">0</strong></p>
+                <p>Forkert: <strong id="window1Incorrect">0</strong></p>
+                <p class="accuracy-rate">Nøjagtighed: <strong id="window1Accuracy">0%</strong></p>
+                <p class="accuracy-rate">Gennemsnitlig tid: <strong id="window1AvgTime">0s</strong></p>
+                
+                <h3 style="color: white; margin-top: 15px; margin-bottom: 15px;">14-16 Minutter</h3>
+                <p>Korrekt: <strong id="window2Correct">0</strong></p>
+                <p>Forkert: <strong id="window2Incorrect">0</strong></p>
+                <p class="accuracy-rate">Nøjagtighed: <strong id="window2Accuracy">0%</strong></p>
+                <p class="accuracy-rate">Gennemsnitlig tid: <strong id="window2AvgTime">0s</strong></p>
+                
+                <h3 style="color: white; margin-top: 15px; margin-bottom: 15px;">28-30 Minutter</h3>
+                <p>Korrekt: <strong id="window3Correct">0</strong></p>
+                <p>Forkert: <strong id="window3Incorrect">0</strong></p>
+                <p class="accuracy-rate">Nøjagtighed: <strong id="window3Accuracy">0%</strong></p>
+                <p class="accuracy-rate">Gennemsnitlig tid: <strong id="window3AvgTime">0s</strong></p>
+            </div>
+            <button class="reset-btn" onclick="resetTest()">Prøv igen</button>
+        </div>
+    </div>
+
+    <script src="Script.js"></script>
+</body>
+</html>
